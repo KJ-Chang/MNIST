@@ -6,7 +6,7 @@ from config import *
 
 def get_dataloader():
     transfrom = transforms.Compose([
-        transforms.Resize((32, 32)),
+        transforms.Resize(get_resize()),
         transforms.ToTensor()
     ])
 
@@ -38,7 +38,10 @@ def get_dataloader():
 
     return train_dataloader, test_dataloader
 
-
-
+def get_resize():
+    if MODEL_NAME == 'LeNet':
+        return (32, 32)
+    elif MODEL_NAME == 'AlexNet':
+        return (224, 224)
 
 
