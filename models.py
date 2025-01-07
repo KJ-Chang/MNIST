@@ -69,7 +69,7 @@ class AlexNet(nn.Module):
         x = self.classifier(x)
         return x
     
-# VGG_E for MNIST
+# VGG_E for MNIST (The training was very bad)
 class VGG(nn.Module):
     def __init__(self):
         super().__init__()
