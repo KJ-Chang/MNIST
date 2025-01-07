@@ -32,12 +32,6 @@ class LeNet(nn.Module):
         x = self.block3(x)
         return x
 
-def get_model(model_name = 'LeNet'):
-    if model_name == 'LeNet':
-        return LeNet()
-    elif model_name == 'AlexNet':
-        return AlexNet()
-
 # AlexNet for MNIST
 class AlexNet(nn.Module): 
     def __init__(self):
@@ -74,3 +68,70 @@ class AlexNet(nn.Module):
         x = self.features(x)
         x = self.classifier(x)
         return x
+    
+# VGG_E for MNIST
+class VGG(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.features = nn.Sequential(
+            nn.Conv2d(in_channels=1, out_channels=64, kernel_size=(3, 3), stride=1, padding=1), # 224x224 -> 224x224
+            nn.ReLU(inplace=True),
+            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=(3, 3), stride=1, padding=1), # 224x224 -> 224x224
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=(2, 2), stride=2), # 224x224 -> 112x112
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=(3, 3), stride=1, padding=1), # 112x112 -> 112x112
+            nn.ReLU(inplace=True),
+            nn.Conv2d(in_channels=128, out_channels=128, kernel_size=(3, 3), stride=1, padding=1), # 112x112 -> 112x112
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=(2, 2), stride=2), # 112x112 -> 56x56
+            nn.Conv2d(in_channels=128, out_channels=256, kernel_size=(3, 3), stride=1, padding=1), # 56x56 -> 56x56
+            nn.ReLU(inplace=True),
+            nn.Conv2d(in_channels=256, out_channels=256, kernel_size=(3, 3), stride=1, padding=1), # 56x56 -> 56x56
+            nn.ReLU(inplace=True),
+            nn.Conv2d(in_channels=256, out_channels=256, kernel_size=(3, 3), stride=1, padding=1), # 56x56 -> 56x56
+            nn.ReLU(inplace=True),
+            nn.Conv2d(in_channels=256, out_channels=256, kernel_size=(3, 3), stride=1, padding=1), # 56x56 -> 56x56
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=(2, 2), stride=2), # 56x56 -> 28x28
+            nn.Conv2d(in_channels=256, out_channels=512, kernel_size=(3, 3), stride=1, padding=1), # 28x28 -> 28x28
+            nn.ReLU(inplace=True),
+            nn.Conv2d(in_channels=512, out_channels=512, kernel_size=(3, 3), stride=1, padding=1), # 28x28 -> 28x28
+            nn.ReLU(inplace=True),
+            nn.Conv2d(in_channels=512, out_channels=512, kernel_size=(3, 3), stride=1, padding=1), # 28x28 -> 28x28
+            nn.ReLU(inplace=True),
+            nn.Conv2d(in_channels=512, out_channels=512, kernel_size=(3, 3), stride=1, padding=1), # 28x28 -> 28x28
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=(2, 2), stride=2), # 28x28 -> 14x14
+            nn.Conv2d(in_channels=512, out_channels=512, kernel_size=(3, 3), stride=1, padding=1), # 14x14 -> 14x14
+            nn.ReLU(inplace=True),
+            nn.Conv2d(in_channels=512, out_channels=512, kernel_size=(3, 3), stride=1, padding=1), # 14x14 -> 14x14
+            nn.ReLU(inplace=True),
+            nn.Conv2d(in_channels=512, out_channels=512, kernel_size=(3, 3), stride=1, padding=1), # 14x14 -> 14x14
+            nn.ReLU(inplace=True), 
+            nn.Conv2d(in_channels=512, out_channels=512, kernel_size=(3, 3), stride=1, padding=1), # 14x14 -> 14x14
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=(2, 2), stride=2), # 14x14 -> 7x7
+        )
+
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(in_features=512*7*7, out_features=4096),
+            nn.ReLU(inplace=True),
+            nn.Linear(in_features=4096, out_features=4096),
+            nn.ReLU(inplace=True),
+            nn.Linear(in_features=4096, out_features=10)
+        )
+    
+    def forward(self, x):
+        x = self.features(x)
+        x = self.classifier(x)
+        return x
+        
+
+def get_model(model_name = 'LeNet'):
+    if model_name == 'LeNet':
+        return LeNet()
+    elif model_name == 'AlexNet':
+        return AlexNet()
+    elif model_name == 'VGG':
+        return VGG()

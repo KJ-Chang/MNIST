@@ -43,5 +43,7 @@ def get_resize():
         return (32, 32)
     elif MODEL_NAME == 'AlexNet':
         return (224, 224)
+    elif MODEL_NAME == 'VGG':
+        return (224, 224)
 
 

@@ -8,5 +8,7 @@ Use classic pre-trained models
 
 - Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton (2017) ImageNet classification with deep convolutional neural networks. Communications of the ACM, Volume 60, Issue 6 Pages 84 - 90 [DOI: 10.1145/3065386](https://doi.org/10.1145/3065386)
 
+- Karen Simonyan, Andrew Zisserman. [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/abs/1409.1556). *arXiv preprint arXiv:1409.1556*, 2015. 
+
 ### Websites
 - LeNet-5 Complete Architecture: [https://medium.com/codex/lenet-5-complete-architecture-84c6d08215f9#:~:text=LeNet5%20is%20a%20small%20network%2C%20it%20contains%20the,is%20the%20basis%20of%20other%20deep%20learning%20models.](https://medium.com/codex/lenet-5-complete-architecture-84c6d08215f9#:~:text=LeNet5%20is%20a%20small%20network%2C%20it%20contains%20the,is%20the%20basis%20of%20other%20deep%20learning%20models.)
