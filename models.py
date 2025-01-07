@@ -56,19 +56,21 @@ class AlexNet(nn.Module):
             nn.Conv2d(in_channels=384, out_channels=256, kernel_size=(3, 3), stride=1, padding=1),  # 13x13 -> 13x13
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=(3, 3), stride=2, padding=0), # 13x13 -> 6x6
+            nn.Dropout2d(p=0.5),
         )
-        self.flatten = nn.Flatten()
+
         self.classifier = nn.Sequential(
-            nn.Dropout(p=0.5),
+            nn.Flatten(),
             nn.Linear(in_features=256*6*6, out_features=4096),
             nn.ReLU(inplace=True),
+            nn.Dropout(p=0.5),
             nn.Linear(in_features=4096, out_features=4096),
             nn.ReLU(inplace=True),
+            nn.Dropout(p=0.5),
             nn.Linear(in_features=4096, out_features=10)
         )
     
     def forward(self, x):
         x = self.features(x)
-        x = self.flatten(x)
         x = self.classifier(x)
         return x
